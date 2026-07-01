@@ -1,0 +1,24 @@
+#Python Artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environments
+venv/
+env/
+.venv/
+
+# Local Telemetry & Logs 
+logs/
+*.log
+telemetry.json
+
+# Secrets and Local Configs
+.env
+config/local_settings.yaml
+secret_keys.txt
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
