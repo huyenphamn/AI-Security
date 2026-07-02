@@ -1,0 +1,9 @@
+services:
+  ai-security:
+    build: .
+    container_name: ai-security
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    command: python app/main.py
