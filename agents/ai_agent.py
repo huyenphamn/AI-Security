@@ -1,8 +1,8 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from telemetry.events import PromptActivity
 from telemetry.logger import log_event
-from tools import read_file, execute_command
+from agents.tools import read_file, execute_command
 
 class DummyAIAgent:
     def __init__(self, system_prompt: str):
@@ -17,7 +17,7 @@ class DummyAIAgent:
 
         # Log prompts before processing
         prompt_event = PromptActivity(
-            timestamp=datetime.utcnow().isoformat() + "Z",
+            timestamp=datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
             event_id=str(uuid.uuid4()),
             user_prompt=user_prompt,
             system_prompt=self.system_prompt

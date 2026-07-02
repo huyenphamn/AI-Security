@@ -1,6 +1,6 @@
 import functools
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from telemetry.events import AIAgentAction
 from telemetry.logger import log_event
 
@@ -24,7 +24,7 @@ def monitor_tool(action_type: str):
             finally:
                 # Build and log AT Telemetry
                 event = AIAgentAction(
-                    timestamp=datetime.utcnow().isoformat() + "Z",
+                    timestamp=datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
                     event_id=str(uuid.uuid4()),
                     action_type=action_type,
                     target=target,
