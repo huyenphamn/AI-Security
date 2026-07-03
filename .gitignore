@@ -22,3 +22,7 @@ secret_keys.txt
 # OS Generated Files
 .DS_Store
 Thumbs.db
+
+/data
+/model
+/models
