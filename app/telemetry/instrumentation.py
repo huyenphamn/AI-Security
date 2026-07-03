@@ -1,8 +1,8 @@
 import functools
 import uuid
 from datetime import datetime, timezone
-from telemetry.events import AIAgentAction
-from telemetry.logger import log_event
+from app.telemetry.events import AIAgentAction
+from app.telemetry.logger import log_event
 
 def monitor_tool(action_type: str):
     """

@@ -3,3 +3,8 @@ pandas
 scikit-learn
 streamlit
 python-dotenv
+torch
+transformers
+accelerate
+evaluate
+datasets

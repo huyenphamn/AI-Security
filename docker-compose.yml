@@ -5,5 +5,6 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/app
+      # :ro makes the mount read-only, preventing the deadlock
+      - .:/app:ro
     command: python app/main.py
