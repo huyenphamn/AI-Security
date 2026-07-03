@@ -81,14 +81,14 @@ A DistilBERT-based classifier trained on the `deepset/prompt-injections` dataset
 Accuracy: 0.9397
 
 Classification Report:
-              precision    recall  f1-score   support
+              precision  |  recall  | f1-score  |  support
 
-        Safe       0.92      0.96      0.94        56
-   Injection       0.96      0.92      0.94        60
+        Safe   |    0.92  |    0.96  |   0.94   |     56
+   Injection   |   0.96   |  0.92   |   0.94    |    60
 
-    accuracy                           0.94       116
-   macro avg       0.94      0.94      0.94       116
-weighted avg       0.94      0.94      0.94       116
+    accuracy   |                        0.94    |   116
+   macro avg   |    0.94   |  0.94      0.94    |   116
+weighted avg   |    0.94   |  0.94      0.94    |   116
 
 ### Evaluation Dataset
 - HuggingFace dataset: deepset/prompt-injections
