@@ -26,3 +26,4 @@ Thumbs.db
 /data
 /model
 /models
+__pycache__
