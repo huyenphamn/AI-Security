@@ -1,4 +1,4 @@
-from app.detectors.base import BaseDetector
+from app.detectors.rule_based.base import BaseDetector
 
 class PromptInjectionDetector(BaseDetector):
     def __init__(self):

@@ -8,3 +8,5 @@ transformers
 accelerate
 evaluate
 datasets
+neo4j
+kagglehub

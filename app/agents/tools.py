@@ -4,7 +4,10 @@ from app.telemetry.instrumentation import monitor_tool
 import subprocess
 
 
-@monitor_tool(action_type="file_access")
+@monitor_tool(
+    action_type="file_access",
+    tool_name="read_file"
+)
 def read_file(filepath: str) -> str:
     """
     Simulated file read tool.
@@ -18,7 +21,10 @@ def read_file(filepath: str) -> str:
         return f"[ERROR] File not found: {filepath}"
 
 
-@monitor_tool(action_type="terminal_execution")
+@monitor_tool(
+    action_type="terminal_execution",
+    tool_name="execute_command"
+)
 def execute_command(command: str) -> str:
     """
     Simulated terminal execution tool.
@@ -39,7 +45,10 @@ def execute_command(command: str) -> str:
         return f"[ERROR] Command failed: {str(e)}"
 
 
-@monitor_tool(action_type="network_request")
+@monitor_tool(
+    action_type="network_request",
+    tool_name="http_request"
+)
 def http_request(url: str) -> str:
     """
     Simulated network tool (for exfiltration scenarios in tests).

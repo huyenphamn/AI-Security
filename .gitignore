@@ -27,3 +27,59 @@ Thumbs.db
 /model
 /models
 __pycache__
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Logs
+*.log
+logs/
+
+# ML models
+models/
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# HuggingFace cache
+.cache/
+huggingface/
+**/.cache/
+
+# Datasets
+datasets/
+data/
+*.jsonl
+*.csv
+
+# Kaggle downloads
+kaggle/
+.kaggle/
+
+# Neo4j
+neo4j/
+*.db
+*.dump
+
+# OS files
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Build files
+dist/
+build/
+*.egg-info/
+
+# ML evaluation datasets
+behavior_test_dataset/

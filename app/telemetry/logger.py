@@ -10,6 +10,11 @@ def setup_logger():
         f.write("")
 
 
-def log_event(event_json: str):
+import json
+
+def log_event(event):
     with open(LOG_FILE, "a") as f:
-        f.write(event_json + "\n")
+        if isinstance(event, dict):
+            event = json.dumps(event)
+
+        f.write(event + "\n")

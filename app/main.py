@@ -7,15 +7,21 @@ from app.agents.ai_agent import DummyAIAgent
 from app.telemetry.logger import setup_logger, LOG_FILE
 
 # Rule-based detectors
-from app.detectors.prompt_injection import PromptInjectionDetector
-from app.detectors.suspicious_command import SuspiciousCommandDetector
-from app.detectors.file_access import SensitiveFileAccessDetector
+from app.detectors.rule_based.prompt_injection import PromptInjectionDetector
+from app.detectors.rule_based.suspicious_command import SuspiciousCommandDetector
+from app.detectors.rule_based.file_access import SensitiveFileAccessDetector
 
 # ML detector 
-from app.detectors.ml_classifier.detector import PromptInjectionMLDetector
-
+from app.detectors.prompt_injection.detector import PromptInjectionMLDetector
+from app.detectors.behavior_ml.detector import BehaviorMLDetector
 from app.correlation.incident_builder import IncidentBuilder
 
+from app.visualization.incident_visualize import Neo4jVisualizer
+
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def run_simulation():
     print("\n--- Initializing EDR Pipeline ---\n")
@@ -23,17 +29,25 @@ def run_simulation():
 
     # Load detectors
     detectors = [
-        PromptInjectionDetector(),
-        SuspiciousCommandDetector(),
-        SensitiveFileAccessDetector(),
-        PromptInjectionMLDetector()  
-    ]
+    # Fast rule-based layer
+    SuspiciousCommandDetector(),
+    SensitiveFileAccessDetector(),
+
+    # ML semantic layer
+    PromptInjectionMLDetector(),
+    BehaviorMLDetector()]
 
     print(f"Loaded {len(detectors)} detectors.\n")
 
     # Correlation engine
     correlation_engine = IncidentBuilder(time_window_seconds=5)
     print("Correlation Engine initialized.\n")
+
+    neo4j_uri = os.environ["NEO4J_URI"]
+    neo4j_user = os.environ["NEO4J_USER"]
+    neo4j_password = os.environ["NEO4J_PASSWORD"]
+    
+    graph_db = Neo4jVisualizer(neo4j_uri, neo4j_user, neo4j_password)
 
     # Run dummy agent
     agent = DummyAIAgent(
@@ -81,11 +95,12 @@ def run_simulation():
 
                     # Normalized before correlation
                     normalized_alert = {
+                        "event_id": event.get("event_id"),
                         "timestamp": event["timestamp"],
-                        "type": event.get("type", alert.get("type", "unknown")),
-                        "risk": alert.get("risk", 0.5),
+                        "type": alert.get("type"),
+                        "risk": alert.get("risk"),
                         "is_malicious": alert.get("is_malicious", True),
-                        "agent_id": event.get("agent_id", "ai_1"),
+                        "agent_id": event.get("agent_id"),
                         "source_detector": detector.name,
                         "raw_event": event
                     }
@@ -117,6 +132,10 @@ def run_simulation():
 
         for chain in correlation_engine.closed_attack_chains:
             print(json.dumps(chain, indent=2))
+            if graph_db:
+                graph_db.ingest_incident_chain(chain)
+
+    graph_db.close()
 
 
 if __name__ == "__main__":

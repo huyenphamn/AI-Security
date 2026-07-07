@@ -1,4 +1,4 @@
-from app.detectors.ml_classifier.detector import PromptInjectionDetector
+from app.detectors.prompt_injection.detector import PromptInjectionDetector
 import re
 
 class RuleEngine:

@@ -1,10 +1,17 @@
 services:
-  ai-security:
-    build: .
-    container_name: ai-security
-    env_file:
-      - .env
+  neo4j:
+    image: neo4j:5
+    container_name: ai-security-neo4j
+
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+
+    environment:
+      NEO4J_AUTH: ${NEO4J_USER}/${NEO4J_PASSWORD}
+
     volumes:
-      # :ro makes the mount read-only, preventing the deadlock
-      - .:/app:ro
-    command: python app/main.py
+      - neo4j_data:/data
+
+volumes:
+  neo4j_data:

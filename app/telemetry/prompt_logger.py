@@ -1,7 +1,7 @@
 import json
 import uuid
 from datetime import datetime, timezone
-from app.detectors.rule_engine import RuleEngine
+from app.detectors.rule_based.rule_engine import RuleEngine
 from app.telemetry.logger import log_event
 
 

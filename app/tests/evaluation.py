@@ -1,4 +1,4 @@
-from app.detectors.ml_classifier.detector import PromptInjectionMLDetector
+from app.detectors.prompt_injection.detector import PromptInjectionMLDetector
 from datasets import load_dataset
 from sklearn.metrics import classification_report, accuracy_score
 import numpy as np
